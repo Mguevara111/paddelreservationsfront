@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@source "./src/**/*.html";
+
+@theme{
+    --pblue:#336699;
+    --sblue:#9ED7E6;
+}
+
+@layer utilities{
+    /************loader************/
+    
+        .loader {
+            width: 150px;
+            --b: 8px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #514b82;
+            -webkit-mask:
+                repeating-conic-gradient(#0000 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+                radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+            -webkit-mask-composite: destination-in;
+                    mask-composite: intersect;
+            animation: l5 1s infinite;
+            }
+            @keyframes l5 {to{transform: rotate(.5turn)}}
+
+        .button{
+            width: 12ch;
+            height: 30px;
+            border:none;
+            border-radius: 1rem;
+            background-color: brown;
+            color: whitesmoke;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem;
+        }
+        .button:hover{
+            filter: invert(100%);
+        }
+
+        tr,th,td{
+            text-align: center;
+            padding: 0.5rem;
+            border: thin solid;
+        }
+
+        input[type="text"],select{
+            width: 150px;
+            height: 30px;
+            border-radius: 1rem;
+            border: none;
+            background-color: var(--sblue);
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        select{
+            height: 40px;
+            font-size: 1rem;
+        }
+        input[type="checkbox"]{
+            width: 20px;
+            height: 20px;
+            background-color: gray;
+            color: gray;
+        }
+        .colorframe{
+            border: thick solid transparent;
+            border-image: linear-gradient(to right, var(--pblue), green) 1;
+        }
+
+        .pbg{
+            background-image: url('./assets/high-angle-palette-balls-field.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        @media screen and (min-width:62em) {
+            .newreservation__container{
+                border: thick solid transparent;
+                border-image: linear-gradient(to right, var(--pblue), green) 1;
+            }
+        }
+}
