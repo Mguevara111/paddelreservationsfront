@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# 🎾 Padel Match - Priority Court Booking & Operational Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Español](#español) | [English](#english)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🇪🇸 Español
 
-## React Compiler
+### 📌 Descripción del Proyecto
+**Padel Match** es un sistema fullstack de gestión operativa desarrollado para el personal de recepción de un club deportivo. Permite gestionar en tiempo real la disponibilidad y reserva de 4 pistas de pádel (cubiertas y al aire libre), aplicando reglas de negocio complejas como tarifas por iluminación nocturna, alquiler de equipamiento adicional y validación estricta de solapamiento de horarios.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🛠️ Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+#### **Backend**
+* **Lenguaje & Runtime:** Node.js, TypeScript.
+* **Framework:** Express.js.
+* **Base de Datos & Persistencia:** PostgreSQL (driver `pg`), `connect-pg-simple` para persistencia real de sesiones.
+* **Autenticación & Seguridad:** `express-session` con cookies `httpOnly` cruzadas (`credentials: 'include'`).
+* **Validación de Datos:** Zod.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### **Frontend**
+* **Librería UI:** React 18, TypeScript.
+* **Build Tool:** Vite.
+* **Estilos:** Tailwind CSS.
+* **Gestión de Estado & Rutas:** React Context API, React Router Dom v6.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### ✨ Características Principales & Reglas de Negocio
+* **Autenticación Basada en Sesiones Persistentes:** Protección de rutas mediante middlewares. Las sesiones no se destruyen al reiniciar el servidor gracias a la tabla `user_sessions` en PostgreSQL.
+* **Validación de Solapamiento de Horarios:** Algoritmo matemático basado en rangos de tiempo convertidos a minutos para evitar dobles reservas en una misma pista.
+* **Cálculo de Tarifas Dinámicas:**
+  * Costo base por hora de pista: **$20**.
+  * Recargo por iluminación en Turno Nocturno ($\ge$ 18:00): **+$5/hora**.
+  * Adicional fijo por alquiler de palas: **+$6**.
+* **Dashboard Operativo & Estadísticas:** Resumen dinámico de pistas reservadas, recaudación total acumulada y reservas nocturnas.
+* **Filtros Dinámicos:** Búsqueda rápida por tipo de pista (Cubierta / Aire Libre) y jornada (Mañana / Noche) usando `URLSearchParams`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+### ⚙️ Instalación y Configuración Local
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+#### Prerrequisitos
+* Node.js ($\ge$ v18)
+* PostgreSQL instanciado en `localhost:5432`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+#### 1. Configuración del Backend
+```bash
+cd backend
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+🇬🇧 English
+📌 Project Overview
+Padel Match is a fullstack operational management system designed for sports club reception personnel. It enables real-time booking and availability tracking across 4 padel courts (indoor and open-air), enforcing complex business logic such as night-time lighting surcharges, equipment rentals, and strict schedule overlap validation.
 
-```
+🛠️ Tech Stack
+Backend
+Language & Runtime: Node.js, TypeScript.
+
+Framework: Express.js.
+
+Database & Persistence: PostgreSQL (pg driver), connect-pg-simple for persistent session storage.
+
+Authentication & Security: express-session with cross-origin httpOnly cookies (credentials: 'include').
+
+Validation: Zod.
+
+Frontend
+UI Library: React 18, TypeScript.
+
+Build Tool: Vite.
+
+Styling: Tailwind CSS.
+
+State & Routing: React Context API, React Router Dom v6.
+
+✨ Key Features & Business Rules
+Persistent Session-Based Auth: Protected routes via custom middlewares. User sessions persist across server restarts using PostgreSQL database storage.
+
+Schedule Overlap Prevention: Range-overlap mathematical algorithm converting schedule times to total minutes to prevent duplicate bookings per court.
+
+Dynamic Price Calculation:
+
+Base rate per court hour: $20.
+
+Night Shift Surcharge (>= 18:00): +$5/hour for artificial lighting.
+
+Paddle rental fee: +$6 fixed.
+
+Operational Dashboard & Key Metrics: Live summary of total court reservations, confirmed revenue, and night bookings.
+
+Filter System: Multi-criteria filtering by court type (Roofed / Open-Air) and time slots (Morning / Night) using URLSearchParams.
+
+⚙️ Local Setup Instructions
+Prerequisites
+Node.js (>= v18)
+
+Active PostgreSQL instance at localhost:5432
+
+1. Backend Setup
+Bash
+cd backend
+npm install
+npm run dev
+2. Frontend Setup
+Bash
+cd frontend
+npm install
+npm run dev
+Developed by Marcelo Guevara — Fullstack Developer
